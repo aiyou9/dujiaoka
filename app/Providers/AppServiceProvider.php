@@ -11,6 +11,8 @@ use App\Service\OrderService;
 use App\Service\PayService;
 use Illuminate\Support\ServiceProvider;
 use Jenssegers\Agent\Agent;
+#adjust for render https://render.com/docs/deploy-php-laravel-docker
+use Illuminate\Routing\UrlGenerator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -52,9 +54,17 @@ class AppServiceProvider extends ServiceProvider
      * Bootstrap any application services.
      *
      * @return void
-     */
+     *
     public function boot()
     {
 
+    }
+*/
+    # adjust for render https://render.com/docs/deploy-php-laravel-docker
+    public function boot(UrlGenerator $url)
+    {
+        if (env('APP_ENV') == 'production') {
+            $url->forceScheme('https');
+        }
     }
 }
